@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Switch } from "@/components/ui/switch";
-import { setTelemetryEnabled } from "@/utils/mixpanel";
 import { Loader2 } from "lucide-react";
 
 const PrivacySettings = () => {
@@ -25,7 +24,6 @@ const PrivacySettings = () => {
   const handleTrackingToggle = async (enabled: boolean) => {
     const prev = trackingEnabled;
     setTrackingEnabled(enabled);
-    setTelemetryEnabled(enabled);
     setSaving(true);
     try {
       if (window.electron?.setUserConfig) {
@@ -42,7 +40,6 @@ const PrivacySettings = () => {
       }
     } catch {
       setTrackingEnabled(prev);
-      setTelemetryEnabled(prev ?? true);
     } finally {
       setSaving(false);
     }

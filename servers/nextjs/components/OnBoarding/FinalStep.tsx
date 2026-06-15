@@ -1,7 +1,6 @@
 import { ArrowRight, PartyPopper } from 'lucide-react'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useState } from 'react'
-import { trackEvent, MixpanelEvent, setTelemetryEnabled } from "@/utils/mixpanel";
 import { Switch } from '../ui/switch';
 import confetti from 'canvas-confetti';
 
@@ -24,7 +23,6 @@ function fireRealisticConfetti() {
 
 const FinalStep = () => {
     const router = useRouter()
-    const pathname = usePathname()
     const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -48,7 +46,6 @@ const FinalStep = () => {
     const handleTrackingToggle = useCallback(async (enabled: boolean) => {
         const prev = trackingEnabled;
         setTrackingEnabled(enabled);
-        setTelemetryEnabled(enabled);
         try {
       if (window.electron?.setUserConfig) {
         await window.electron.setUserConfig({
@@ -64,16 +61,13 @@ const FinalStep = () => {
       }
         } catch {
             setTrackingEnabled(prev);
-            setTelemetryEnabled(prev ?? true);
         }
     }, [trackingEnabled]);
 
     const handleGoToDashboard = () => {
-        trackEvent(MixpanelEvent.Navigation, { from: pathname, to: "/dashboard" });
         router.push('/dashboard')
     }
     const handleGoToUpload = () => {
-        trackEvent(MixpanelEvent.Navigation, { from: pathname, to: "/upload" });
         router.push('/upload')
     }
     return (

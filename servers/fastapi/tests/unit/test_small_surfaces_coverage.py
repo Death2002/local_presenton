@@ -357,7 +357,6 @@ def test_handle_llm_client_exceptions(monkeypatch):
         == "auth"
     )
 
-    from google.genai.errors import APIError as GoogleAPIError
     from llmai.shared.errors import BaseError as LLMAIBaseError
 
     llmai_err = LLMAIBaseError(status_code=429, message="busy")
@@ -369,10 +368,6 @@ def test_handle_llm_client_exceptions(monkeypatch):
             request=httpx.Request("POST", "https://x"),
             body=None,
         )
-    ).detail
-
-    assert "Google API error" in handle_llm_client_exceptions(
-        GoogleAPIError(503, {})
     ).detail
 
     generic = handle_llm_client_exceptions(ValueError("oops"))

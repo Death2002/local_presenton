@@ -10,7 +10,6 @@ import {
 } from "@/utils/storeHelpers";
 import { useRouter } from "next/navigation";
 import { LLMConfig } from "@/types/llm_config";
-import { trackEvent, MixpanelEvent } from "@/utils/mixpanel";
 import SettingSideBar from "./SettingSideBar";
 import TextProvider from "./TextProvider";
 import ImageProvider from "./ImageProvider";
@@ -36,7 +35,6 @@ const SettingsPage = () => {
   });
 
   const handleSaveConfig = async () => {
-    trackEvent(MixpanelEvent.Settings_SaveConfiguration_Button_Clicked, {});
     const validationError = getLLMConfigValidationError(llmConfig);
     if (validationError) {
       notify.warning("Cannot save settings", validationError);

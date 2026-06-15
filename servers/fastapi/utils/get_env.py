@@ -71,14 +71,3 @@ def get_openai_compat_image_model_env():
 def get_migrate_database_on_startup_env():
     return os.getenv("MIGRATE_DATABASE_ON_STARTUP")
 
-
-def get_sentry_dsn_env():
-    return os.getenv("SENTRY_DSN")
-
-
-def get_sentry_traces_sample_rate_env():
-    return os.getenv("SENTRY_TRACES_SAMPLE_RATE")
-
-
-def get_sentry_send_default_pii_env():
-    return os.getenv("SENTRY_SEND_DEFAULT_PII")

@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import { Syne, Unbounded } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import MixpanelInitializer from "./MixpanelInitializer";
 import { Toaster } from "@/components/ui/sonner";
 const inter = localFont({
   src: [
@@ -84,11 +83,7 @@ export default function RootLayout({
         className={`${inter.variable} ${syne.variable} ${unbounded.variable} antialiased`}
       >
         <Providers>
-          <MixpanelInitializer>
-
             {children}
-
-          </MixpanelInitializer>
         </Providers>
         <Toaster position="top-center" />
       </body>
